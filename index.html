@@ -7,157 +7,161 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- RESET & SETUP --- */
+        /* --- RESET --- */
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         body { margin: 0; padding: 0; background: #ccc; font-family: 'Hind Siliguri', sans-serif; }
         
         .main-container {
-            display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; justify-content: center;
+            display: flex; gap: 20px; padding: 20px; justify-content: center; align-items: flex-start;
         }
 
         /* --- CONTROLS --- */
         .controls {
-            width: 320px; background: white; padding: 15px; border-radius: 8px; height: fit-content;
+            width: 320px; background: white; padding: 15px; border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.2); border-top: 5px solid #002b45;
         }
         .input-group { margin-bottom: 8px; }
         .input-group label { display: block; font-weight: bold; font-size: 13px; color: #002b45; margin-bottom: 2px; }
         .input-group input, .input-group select {
-            width: 100%; padding: 6px; border: 1px solid #999; border-radius: 4px; font-family: 'Hind Siliguri'; font-size: 14px;
+            width: 100%; padding: 8px; border: 1px solid #999; border-radius: 4px; font-family: 'Hind Siliguri'; font-size: 15px;
         }
         .btn-print {
-            background: #002b45; color: #d4af37; border: 1px solid #d4af37; width: 100%; padding: 10px;
+            background: #002b45; color: #d4af37; border: 1px solid #d4af37; width: 100%; padding: 12px;
             font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px;
         }
-        .btn-print:hover { background: #001a2b; }
 
-        /* --- A4 PAGE DESIGN (Exact Replica) --- */
+        /* --- A4 PAGE (Fixed Layout) --- */
         .preview-wrapper { background: #555; padding: 20px; overflow: auto; }
         
         .a4-page {
-            width: 210mm; height: 296mm; /* Fixed A4 */
-            background-color: #002b45; /* Deep Blue Background */
-            /* Subtle Pattern Overlay */
-            background-image: radial-gradient(circle at 50% 30%, #004e7a 0%, #002b45 60%);
-            margin: 0 auto; position: relative; padding: 10mm;
+            width: 210mm; height: 296mm; /* Exact A4 */
+            background-color: #002b45; /* Deep Blue */
+            background-image: radial-gradient(circle at 50% 20%, #004e7a 0%, #002b45 70%);
+            margin: 0 auto; position: relative; 
             overflow: hidden; 
         }
 
-        /* The Gold Frame */
-        .gold-border {
-            border: 3px solid #d4af37; height: 100%; width: 100%; position: relative;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        /* Top Header Area */
+        .header-area {
+            height: 15%; /* Top 15% Blue */
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: #d4af37; z-index: 2; position: relative; padding-top: 10px;
+        }
+        .bismillah { filter: invert(1) brightness(2); height: 30px; margin-bottom: 5px; }
+        .uni-name { font-size: 24px; font-weight: 700; text-shadow: 2px 2px 4px black; }
+
+        /* The Cream Body (Mihrab Arch) */
+        .cream-body {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            height: 83%; /* Occupies bottom 83% */
+            background: #fff8e5;
+            border-top: 4px solid #d4af37;
+            border-radius: 50% 50% 0 0 / 80px 80px 0 0; /* Smoother Curve */
+            padding: 60px 40px 20px 40px; /* Top padding pushes content below logo */
+            display: flex; flex-direction: column;
+            justify-content: space-between; /* Distributes space */
         }
 
-        /* Top Bismillah & University (Inside Blue Area) */
-        .top-blue-area {
-            position: absolute; top: 15px; left: 0; width: 100%; text-align: center; z-index: 10;
-        }
-        .bismillah { filter: invert(1) brightness(2); height: 25px; margin-bottom: 5px; }
-        .uni-name { color: #d4af37; font-size: 22px; font-weight: 700; text-shadow: 2px 2px 4px black; }
-
-        /* The Cream Arch (Mihrab) */
-        .cream-arch {
-            position: absolute; bottom: 5px; left: 5px; right: 5px;
-            height: 85%; /* Occupies bottom 85% */
-            background: #fff8e5; /* Cream */
-            border: 3px solid #d4af37;
-            /* Complex Arch Shape */
-            border-radius: 100px 100px 0 0; 
-            padding: 40px 20px 10px 20px; /* Top padding for Logo space */
-            display: flex; flex-direction: column; align-items: center;
-        }
-        
-        /* Decoration Lines on Arch */
-        .cream-arch::before {
-            content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px;
-            border: 1px solid #d4af37; border-radius: 95px 95px 0 0; pointer-events: none;
+        /* Decoration Lines */
+        .cream-body::after {
+            content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 0;
+            border-top: 2px solid #d4af37; border-left: 2px solid #d4af37; border-right: 2px solid #d4af37;
+            border-radius: 50% 50% 0 0 / 80px 80px 0 0; pointer-events: none;
         }
 
-        /* LOGO - Floating on Top of Arch */
+        /* LOGO - Floating Perfectly */
         .logo-container {
-            position: absolute; top: -50px; /* Pulls logo up */
-            width: 100px; height: 100px;
+            position: absolute; 
+            top: 14%; /* Adjusted to sit on the border */
+            left: 50%; transform: translateX(-50%);
+            width: 110px; height: 110px;
             background: white; border-radius: 50%;
-            border: 3px solid #d4af37;
+            border: 4px solid #d4af37;
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 20;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 10;
         }
-        .logo-img { width: 75px; }
+        .logo-img { width: 80px; }
 
-        /* Content inside Arch */
-        .sub-title { font-weight: 600; color: #000; margin-top: 5px; font-size: 14px; }
+        /* General Text Info */
+        .info-header { text-align: center; margin-bottom: 10px; }
+        .sub-title { font-weight: 600; color: #333; font-size: 15px; }
         .madrasa-name {
-            font-size: 26px; font-weight: 700; color: #8b6c00; 
-            text-align: center; margin: 2px 0 5px 0; line-height: 1.1;
+            font-size: 30px; font-weight: 700; color: #8b6c00; 
+            margin: 5px 0; line-height: 1.2;
         }
-        .address { font-size: 14px; color: #333; margin-bottom: 10px; }
+        .address { font-size: 15px; color: #444; }
 
-        /* Ornate Badge (Assignment / Headers) */
-        .ornate-badge {
-            background: #002b45; color: white; padding: 5px 40px;
-            font-size: 20px; font-weight: 700; position: relative;
-            /* Shape similar to image */
-            clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-            border: 2px solid #d4af37; /* Note: clip-path cuts border, so we use box-shadow/filter for border effect in advanced CSS, but here simple background works */
-            margin-bottom: 10px;
-            text-align: center; min-width: 200px;
-        }
-        /* Trick for Gold Border on Clipped Shape */
-        .ornate-wrapper {
-            filter: drop-shadow(0px 0px 1px #d4af37) drop-shadow(0px 0px 1px #d4af37);
-            margin-bottom: 10px; margin-top: 10px;
+        /* Badge */
+        .assignment-badge {
+            background: #002b45; color: white; padding: 5px 50px;
+            font-size: 22px; font-weight: 700; border-radius: 50px;
+            border: 2px solid #d4af37; display: inline-block;
+            box-shadow: 0 4px 5px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
         }
 
-        /* Section 1: Title/Course */
+        /* Sections */
+        .section-block { width: 100%; margin-bottom: 5px; }
+        
+        /* Line Row */
         .line-row {
-            display: flex; width: 100%; margin-bottom: 5px; align-items: flex-end; font-size: 15px;
+            display: flex; width: 100%; margin-bottom: 8px; align-items: flex-end; font-size: 17px;
         }
-        .lbl { width: 80px; font-weight: 700; color: #000; }
-        .val { flex-grow: 1; border-bottom: 1px dotted #000; padding-left: 5px; font-weight: 500; }
+        .lbl { width: 90px; font-weight: 700; color: #000; }
+        .val { 
+            flex-grow: 1; border-bottom: 1px dotted #555; padding-left: 10px; font-weight: 500; 
+        }
 
-        /* Section 3: Student Info (The Complex Part) */
-        .student-table { width: 100%; display: flex; flex-direction: column; gap: 4px; }
+        /* Decorative Headers */
+        .deco-header {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; margin: 15px 0 10px 0;
+        }
+        .deco-text {
+            background: #002b45; color: white; padding: 2px 40px;
+            font-size: 16px; font-weight: 700;
+            clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+            border: 1px solid #d4af37; /* Visual fallback */
+        }
+
+        /* Student Info Table (Blue Arrow Style) */
+        .st-table { display: flex; flex-direction: column; gap: 6px; width: 100%; }
         
         .st-row {
             display: flex; align-items: center; width: 100%;
         }
-        .st-label-box {
+        .st-lbl {
             background: linear-gradient(90deg, #002b45 0%, #004e7a 100%);
-            color: white;
-            width: 130px; height: 26px;
+            color: white; width: 140px; height: 30px;
             display: flex; align-items: center; padding-left: 15px;
-            font-size: 14px; font-weight: 700;
+            font-size: 16px; font-weight: 600;
             /* Arrow Shape */
             clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
-            position: relative; z-index: 2;
         }
-        .st-value-box {
-            flex-grow: 1; height: 26px;
-            border: 1px solid #d4af37; /* Gold border around value */
-            border-left: none;
-            margin-left: -10px; /* Overlap slightly */
+        .st-val {
+            flex-grow: 1; height: 30px;
+            border: 1px solid #d4af37; border-left: none;
+            margin-left: -10px; /* Pull closer to arrow */
             padding-left: 20px; display: flex; align-items: center;
-            font-weight: 600; font-size: 15px; background: white;
-            border-radius: 0 13px 13px 0;
+            font-weight: 600; font-size: 16px; background: white;
+            border-radius: 0 15px 15px 0; /* Rounded right end */
         }
 
-        /* Footer Date */
+        /* Footer */
         .footer-date {
-            margin-top: auto; /* Pushes to bottom */
             background: #002b45; color: white;
-            padding: 5px 30px; border-radius: 5px;
-            border: 2px solid #d4af37; font-weight: 600;
-            margin-bottom: 5px; font-size: 14px;
+            padding: 5px 30px; border-radius: 20px;
+            border: 2px solid #d4af37; font-weight: 600; font-size: 16px;
+            margin-bottom: 5px;
         }
 
-        /* --- PRINT FIX --- */
+        /* --- PRINT CSS --- */
         @media print {
             body { margin: 0; background: white; }
             .controls, .preview-wrapper { display: none !important; }
             .main-container { padding: 0; display: block; }
             .a4-page {
-                position: fixed; top: 0; left: 0; margin: 0; padding: 10mm;
+                position: fixed; top: 0; left: 0; margin: 0; 
                 box-shadow: none; z-index: 9999;
             }
             @page { size: A4 portrait; margin: 0; }
@@ -197,79 +201,60 @@
         <div class="input-group"><label>তারিখ:</label><input type="date" id="in_date" oninput="handleDate()"></div>
 
         <button class="btn-print" onclick="window.print()">🖨️ Save as PDF</button>
-        <p style="font-size:11px; color:red; text-align:center;">প্রিন্ট সেটিংসে <b>Background Graphics</b> টিক দিন।</p>
+        <p style="font-size:11px; color:red; text-align:center;">Background Graphics টিক দিন</p>
     </div>
 
     <div class="preview-wrapper">
         <div class="a4-page">
-            <div class="gold-border">
+            
+            <div class="header-area">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" class="bismillah">
+                <div class="uni-name">ইসলামি আরবি বিশ্ববিদ্যালয়, ঢাকা</div>
+            </div>
+
+            <div class="logo-container">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguY4N9RFPBYwiSd93cQ7a-MB_7H0MQW3iDc_XEUJHXmNMzYLZSsrzxFTPE_lXIpg1ZR54A6Myxe2bxOzVDb1v-y1DSxRuJ-PWRCkf04WkRf6SQQWV_z6EaK03ck5D5r4CRBhx4WlkqJ4ZY9Dc_OSXHkrV5E3qinhHIfRIAToSp67IojPc3NMjxAD1mYT0/s1600/iau-logo.png" class="logo-img">
+            </div>
+
+            <div class="cream-body">
                 
-                <div class="top-blue-area">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" class="bismillah">
-                    <div class="uni-name">ইসলামি আরবি বিশ্ববিদ্যালয়, ঢাকা</div>
-                </div>
-
-                <div class="cream-arch">
-                    <div class="logo-container">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguY4N9RFPBYwiSd93cQ7a-MB_7H0MQW3iDc_XEUJHXmNMzYLZSsrzxFTPE_lXIpg1ZR54A6Myxe2bxOzVDb1v-y1DSxRuJ-PWRCkf04WkRf6SQQWV_z6EaK03ck5D5r4CRBhx4WlkqJ4ZY9Dc_OSXHkrV5E3qinhHIfRIAToSp67IojPc3NMjxAD1mYT0/s1600/iau-logo.png" class="logo-img">
-                    </div>
-
+                <div class="info-header">
                     <div class="sub-title">এর অধিভুক্ত</div>
                     <div class="madrasa-name" id="out_madrasa">জামেয়া আহমদিয়া সুন্নিয়া কামিল মাদ্রাসা</div>
                     <div class="address" id="out_addr">ষোলশহর, পাঁচলাইশ, চট্টগ্রাম।</div>
+                    <div class="assignment-badge">অ্যাসাইনমেন্ট</div>
+                </div>
 
-                    <div class="ornate-wrapper"><div class="ornate-badge">অ্যাসাইনমেন্ট</div></div>
+                <div class="section-block">
+                    <div class="line-row"><div class="lbl">শিরোনাম:</div><div class="val" id="out_title"></div></div>
+                    <div class="line-row"><div class="lbl">কোর্স:</div><div class="val" id="out_course"></div></div>
+                    <div class="line-row"><div class="lbl">কোড:</div><div class="val" id="out_code"></div></div>
+                </div>
 
-                    <div style="width:100%; margin-bottom: 5px;">
-                        <div class="line-row"><div class="lbl">শিরোনাম:</div><div class="val" id="out_title"></div></div>
-                        <div class="line-row"><div class="lbl">কোর্স:</div><div class="val" id="out_course"></div></div>
-                        <div class="line-row"><div class="lbl">কোড:</div><div class="val" id="out_code"></div></div>
-                    </div>
+                <div class="deco-header"><div class="deco-text">নির্দেশনায়:</div></div>
+                <div class="section-block">
+                    <div class="line-row"><div class="lbl">শিক্ষক:</div><div class="val" id="out_tname">................................................</div></div>
+                    <div class="line-row"><div class="lbl">পদবি:</div><div class="val" id="out_tdesig">................................................</div></div>
+                </div>
 
-                    <div class="ornate-wrapper"><div class="ornate-badge" style="padding: 2px 30px; font-size: 16px;">নির্দেশনায়:</div></div>
-                    <div style="width:100%; margin-bottom: 5px;">
-                        <div class="line-row"><div class="lbl">শিক্ষক:</div><div class="val" id="out_tname">................................................</div></div>
-                        <div class="line-row"><div class="lbl">পদবি:</div><div class="val" id="out_tdesig">................................................</div></div>
-                    </div>
+                <div class="deco-header"><div class="deco-text">রচনায়:</div></div>
+                
+                <div class="st-table">
+                    <div class="st-row"><div class="st-lbl">নাম:</div><div class="st-val" id="out_name"></div></div>
+                    <div class="st-row"><div class="st-lbl">রেজিঃ নং:</div><div class="st-val" id="out_reg"></div></div>
+                    <div class="st-row"><div class="st-lbl">শ্রেণি:</div><div class="st-val" id="out_class"></div></div>
+                    <div class="st-row"><div class="st-lbl">পর্ব:</div><div class="st-val" id="out_part">১ম পর্ব</div></div>
+                    <div class="st-row"><div class="st-lbl">বিভাগ:</div><div class="st-val" id="out_dept"></div></div>
+                    <div class="st-row"><div class="st-lbl">সেশন:</div><div class="st-val" id="out_session"></div></div>
+                    <div class="st-row"><div class="st-lbl">পরীক্ষার বছর:</div><div class="st-val" id="out_exam_year"></div></div>
+                </div>
 
-                    <div class="ornate-wrapper"><div class="ornate-badge" style="padding: 2px 30px; font-size: 16px;">রচনায়:</div></div>
-                    
-                    <div class="student-table">
-                        <div class="st-row">
-                            <div class="st-label-box">নাম:</div>
-                            <div class="st-value-box" id="out_name"></div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-label-box">রেজিঃ নং:</div>
-                            <div class="st-value-box" id="out_reg"></div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-label-box">শ্রেণি:</div>
-                            <div class="st-value-box" id="out_class"></div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-label-box">পর্ব:</div>
-                            <div class="st-value-box" id="out_part">১ম পর্ব</div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-label-box">বিভাগ:</div>
-                            <div class="st-value-box" id="out_dept"></div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-label-box">সেশন:</div>
-                            <div class="st-value-box" id="out_session"></div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-label-box">পরীক্ষার বছর:</div>
-                            <div class="st-value-box" id="out_exam_year"></div>
-                        </div>
-                    </div>
-
+                <div style="text-align: center; margin-top: auto;">
                     <div class="footer-date">
                         জমা দেওয়ার তারিখ: <span id="out_date">২৪/০১/২০২৬ খ্রি.</span>
                     </div>
-
                 </div>
+
             </div>
         </div>
     </div>
