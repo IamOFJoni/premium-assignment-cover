@@ -17,18 +17,18 @@
 
         /* --- CONTROLS (Left Side) --- */
         .input-panel {
-            width: 320px; background: white; padding: 20px; border-radius: 8px;
+            width: 300px; background: white; padding: 15px; border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 5px solid #003366;
             height: fit-content;
         }
         .input-group { margin-bottom: 8px; }
-        .input-group label { display: block; font-weight: bold; font-size: 13px; margin-bottom: 3px; color: #003366; }
+        .input-group label { display: block; font-weight: bold; font-size: 13px; margin-bottom: 2px; color: #003366; }
         .input-group input, .input-group select {
             width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Hind Siliguri'; font-size: 14px;
         }
         .btn-print {
-            background: #003366; color: #ffcc00; border: none; padding: 12px; width: 100%;
-            font-size: 16px; font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 15px;
+            background: #003366; color: #ffcc00; border: none; padding: 10px; width: 100%;
+            font-size: 16px; font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 10px;
             border: 2px solid #ffcc00;
         }
         .btn-print:hover { background: #002244; }
@@ -36,85 +36,94 @@
         /* --- PREVIEW AREA --- */
         .preview-area { background: #555; padding: 20px; border-radius: 8px; overflow: auto; }
 
-        /* --- A4 DESIGN (Fixed Height Issue) --- */
+        /* --- A4 DESIGN (Compact Layout) --- */
         .a4-page {
             width: 210mm; height: 297mm;
             background: radial-gradient(circle, #09203f 0%, #001220 100%);
             margin: 0 auto; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.5);
             padding: 10mm;
+            overflow: hidden; /* Ensure content stays inside */
         }
 
         .gold-frame {
             border: 2px solid #d4af37; height: 100%; width: 100%; position: relative; padding: 5px;
         }
 
+        /* The Cream "Arch" */
         .arch-container {
-            background: #fff8e7; /* Cream color */
-            height: calc(100% - 45px); /* Adjusted height calculation */
+            background: #fff8e7;
+            height: calc(100% - 40px); /* Leave space for top header */
             width: 100%;
-            border-radius: 200px 200px 10px 10px / 50px 50px 10px 10px;
+            border-radius: 180px 180px 10px 10px / 50px 50px 10px 10px;
             border: 4px double #d4af37;
-            padding: 15px 25px;
+            padding: 10px 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-            top: 45px;
+            position: absolute; /* Fix position */
+            bottom: 5px; left: 5px; right: 5px; /* Stick to bottom inside frame */
+            z-index: 1;
         }
 
-        /* Top Header */
+        /* Top Header (Blue Area) */
         .top-header {
-            position: absolute; top: 15px; width: 100%; text-align: center;
-            z-index: 10; color: #d4af37;
+            position: absolute; top: 15px; left: 0; width: 100%; text-align: center;
+            z-index: 10; color: #d4af37; height: 40px;
         }
-        .bismillah { filter: invert(80%) sepia(30%) saturate(1000%) hue-rotate(5deg); height: 30px; }
-        .uni-title { font-size: 22px; font-weight: 700; color: #ffcc00; text-shadow: 1px 1px 2px black; margin-top: 2px; }
+        .bismillah { filter: invert(80%) sepia(30%) saturate(1000%) hue-rotate(5deg); height: 25px; }
+        .uni-title { font-size: 22px; font-weight: 700; color: #ffcc00; text-shadow: 1px 1px 2px black; margin-top: 0; }
 
-        /* Logo Circle */
+        /* Logo Circle (Absolute Position Fix) */
         .logo-circle {
-            background: white; width: 85px; height: 85px; border-radius: 50%;
+            background: white; width: 80px; height: 80px; border-radius: 50%;
             border: 3px solid #d4af37; display: flex; justify-content: center; align-items: center;
-            margin-top: -55px; z-index: 20; box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            position: absolute; 
+            top: -40px; /* Pull up above the arch */
+            z-index: 50; 
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
         }
-        .logo-img { width: 65px; }
+        .logo-img { width: 60px; height: auto; }
 
-        /* Content Styles */
-        .sub-txt { margin-top: 5px; font-weight: 600; color: #555; font-size: 14px; }
-        .madrasa-name { font-size: 26px; font-weight: 700; color: #8b6c00; text-align: center; margin: 2px 0; line-height: 1.2; }
-        .address { font-size: 14px; color: #444; margin-bottom: 10px; }
+        /* Content Spacing (Spacer for Logo) */
+        .spacer { height: 40px; } 
+
+        /* Body Content */
+        .sub-txt { font-weight: 600; color: #555; font-size: 13px; margin-top: 5px; }
+        .madrasa-name { font-size: 24px; font-weight: 700; color: #8b6c00; text-align: center; margin: 2px 0; line-height: 1.1; }
+        .address { font-size: 13px; color: #444; margin-bottom: 8px; }
 
         .badge-container {
-            background: #003366; color: white; padding: 4px 35px;
-            font-size: 20px; font-weight: 700; border-radius: 50px;
-            border: 2px solid #d4af37; margin-bottom: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            background: #003366; color: white; padding: 3px 30px;
+            font-size: 18px; font-weight: 700; border-radius: 50px;
+            border: 2px solid #d4af37; margin-bottom: 8px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
         }
 
-        .content-width { width: 100%; flex-grow: 1; } /* Allow growing to fill space */
+        .content-width { width: 100%; display: flex; flex-direction: column; gap: 3px; }
 
-        /* Simple Rows */
-        .simple-row { display: flex; align-items: flex-end; margin-bottom: 5px; font-size: 16px; }
+        /* Simple Rows (General Info) */
+        .simple-row { display: flex; align-items: flex-end; margin-bottom: 3px; font-size: 15px; }
         .s-lbl { width: 90px; font-weight: 700; color: #222; }
-        .s-val { flex-grow: 1; border-bottom: 1px dotted #888; padding-left: 10px; }
+        .s-val { flex-grow: 1; border-bottom: 1px dotted #888; padding-left: 10px; font-weight: 500; }
 
-        /* Ornate Headers */
+        /* Ornate Section Headers */
         .ornate-header {
             background: linear-gradient(90deg, transparent, #003366, transparent);
-            color: white; text-align: center; font-size: 16px; font-weight: bold;
-            padding: 2px 0; margin: 10px 0 8px 0; width: 100%;
+            color: white; text-align: center; font-size: 15px; font-weight: bold;
+            padding: 2px 0; margin: 8px 0 5px 0; width: 100%;
             border-top: 1px solid #d4af37; border-bottom: 1px solid #d4af37;
         }
 
-        /* STUDENT INFO TABLE (The Blue Tabs) */
+        /* STUDENT INFO TABLE (The Blue Tabs) - Compact */
         .st-row {
-            display: flex; margin-bottom: 5px; align-items: center;
+            display: flex; margin-bottom: 4px; align-items: center;
             background: white; border: 1px solid #e0d0a0; border-radius: 0 15px 15px 0;
-            overflow: hidden; height: 28px; /* Compact height */
+            overflow: hidden; height: 26px; /* Reduced height to fit */
         }
         
         .st-lbl {
             background: linear-gradient(to right, #002b45, #004e7a);
-            color: white; width: 110px; height: 100%;
+            color: white; width: 100px; height: 100%;
             display: flex; align-items: center; padding-left: 10px;
             font-weight: 600; font-size: 14px;
             clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
@@ -127,9 +136,9 @@
 
         /* Footer */
         .footer-badge {
-            background: #003366; color: white;
+            margin-top: auto; background: #003366; color: white;
             padding: 4px 20px; border-radius: 20px; border: 2px solid #d4af37;
-            font-weight: 600; font-size: 15px; margin-top: auto; /* Push to bottom */
+            font-weight: 600; font-size: 14px; margin-bottom: 5px;
         }
 
         /* --- PRINT FIX --- */
@@ -143,7 +152,6 @@
                 position: fixed; top: 0; left: 0; right: 0;
                 box-shadow: none; padding: 10mm;
                 page-break-after: avoid; z-index: 9999;
-                /* Crucial for background graphics */
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -232,17 +240,19 @@
     <div class="preview-area">
         <div class="a4-page">
             <div class="gold-frame">
+                
                 <div class="top-header">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" class="bismillah">
                     <div class="uni-title">ইসলামি আরবি বিশ্ববিদ্যালয়, ঢাকা</div>
                 </div>
 
                 <div class="arch-container">
+                    
                     <div class="logo-circle">
                         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguY4N9RFPBYwiSd93cQ7a-MB_7H0MQW3iDc_XEUJHXmNMzYLZSsrzxFTPE_lXIpg1ZR54A6Myxe2bxOzVDb1v-y1DSxRuJ-PWRCkf04WkRf6SQQWV_z6EaK03ck5D5r4CRBhx4WlkqJ4ZY9Dc_OSXHkrV5E3qinhHIfRIAToSp67IojPc3NMjxAD1mYT0/s1600/iau-logo.png" class="logo-img">
                     </div>
 
-                    <div class="sub-txt">এর অধিভুক্ত</div>
+                    <div class="spacer"></div> <div class="sub-txt">এর অধিভুক্ত</div>
                     <div class="madrasa-name" id="out_madrasa">জামেয়া আহমদিয়া সুন্নিয়া কামিল মাদ্রাসা</div>
                     <div class="address" id="out_addr">ষোলশহর, পাঁচলাইশ, চট্টগ্রাম।</div>
                     
@@ -259,27 +269,13 @@
 
                         <div class="ornate-header">রচনায়:</div>
 
-                        <div class="st-row">
-                            <div class="st-lbl">নাম:</div><div class="st-val" id="out_name"></div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-lbl">রেজিঃ নং:</div><div class="st-val" id="out_reg"></div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-lbl">শ্রেণি:</div><div class="st-val" id="out_class"></div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-lbl">পর্ব:</div><div class="st-val" id="out_part">১ম পর্ব</div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-lbl">বিভাগ:</div><div class="st-val" id="out_dept"></div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-lbl">সেশন:</div><div class="st-val" id="out_session"></div>
-                        </div>
-                        <div class="st-row">
-                            <div class="st-lbl">পরীক্ষার বছর:</div><div class="st-val" id="out_exam_year"></div>
-                        </div>
+                        <div class="st-row"><div class="st-lbl">নাম:</div><div class="st-val" id="out_name"></div></div>
+                        <div class="st-row"><div class="st-lbl">রেজিঃ নং:</div><div class="st-val" id="out_reg"></div></div>
+                        <div class="st-row"><div class="st-lbl">শ্রেণি:</div><div class="st-val" id="out_class"></div></div>
+                        <div class="st-row"><div class="st-lbl">পর্ব:</div><div class="st-val" id="out_part">১ম পর্ব</div></div>
+                        <div class="st-row"><div class="st-lbl">বিভাগ:</div><div class="st-val" id="out_dept"></div></div>
+                        <div class="st-row"><div class="st-lbl">সেশন:</div><div class="st-val" id="out_session"></div></div>
+                        <div class="st-row"><div class="st-lbl">পরীক্ষার বছর:</div><div class="st-val" id="out_exam_year"></div></div>
                     </div>
 
                     <div class="footer-badge">
