@@ -8,30 +8,33 @@
     
     <style>
         /* --- RESET --- */
-        * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         body { margin: 0; padding: 0; background: #ccc; font-family: 'Hind Siliguri', sans-serif; }
         
         .main-container {
-            display: flex; gap: 20px; padding: 20px; justify-content: center; align-items: flex-start;
+            display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; justify-content: center; align-items: flex-start;
         }
 
         /* --- CONTROLS --- */
         .controls {
-            width: 320px; background: white; padding: 15px; border-radius: 8px;
+            width: 320px; background: white; padding: 15px; border-radius: 8px; height: fit-content;
             box-shadow: 0 0 10px rgba(0,0,0,0.2); border-top: 5px solid #002b45;
         }
         .input-group { margin-bottom: 8px; }
         .input-group label { display: block; font-weight: bold; font-size: 13px; color: #002b45; margin-bottom: 2px; }
         .input-group input, .input-group select {
-            width: 100%; padding: 8px; border: 1px solid #999; border-radius: 4px; font-family: 'Hind Siliguri'; font-size: 15px;
+            width: 100%; padding: 6px; border: 1px solid #999; border-radius: 4px; font-family: 'Hind Siliguri'; font-size: 15px;
         }
         .btn-print {
             background: #002b45; color: #d4af37; border: 1px solid #d4af37; width: 100%; padding: 12px;
             font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px;
         }
 
-        /* --- A4 PAGE (Fixed Layout) --- */
-        .preview-wrapper { background: #555; padding: 20px; overflow: auto; }
+        /* --- A4 PAGE DESIGN --- */
+        .preview-wrapper { 
+            background: #555; padding: 20px; overflow: auto; 
+            display: flex; justify-content: center; /* Center the page */
+        }
         
         .a4-page {
             width: 210mm; height: 296mm; /* Exact A4 */
@@ -39,6 +42,7 @@
             background-image: radial-gradient(circle at 50% 20%, #004e7a 0%, #002b45 70%);
             margin: 0 auto; position: relative; 
             overflow: hidden; 
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
         /* Top Header Area */
@@ -56,10 +60,10 @@
             height: 83%; /* Occupies bottom 83% */
             background: #fff8e5;
             border-top: 4px solid #d4af37;
-            border-radius: 50% 50% 0 0 / 80px 80px 0 0; /* Smoother Curve */
-            padding: 60px 40px 20px 40px; /* Top padding pushes content below logo */
+            border-radius: 50% 50% 0 0 / 80px 80px 0 0; 
+            padding: 60px 40px 20px 40px; 
             display: flex; flex-direction: column;
-            justify-content: space-between; /* Distributes space */
+            justify-content: space-between; 
         }
 
         /* Decoration Lines */
@@ -72,7 +76,7 @@
         /* LOGO - Floating Perfectly */
         .logo-container {
             position: absolute; 
-            top: 14%; /* Adjusted to sit on the border */
+            top: 14%; /* Sit on the border */
             left: 50%; transform: translateX(-50%);
             width: 110px; height: 110px;
             background: white; border-radius: 50%;
@@ -102,8 +106,6 @@
 
         /* Sections */
         .section-block { width: 100%; margin-bottom: 5px; }
-        
-        /* Line Row */
         .line-row {
             display: flex; width: 100%; margin-bottom: 8px; align-items: flex-end; font-size: 17px;
         }
@@ -121,7 +123,8 @@
             background: #002b45; color: white; padding: 2px 40px;
             font-size: 16px; font-weight: 700;
             clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-            border: 1px solid #d4af37; /* Visual fallback */
+            /* Visual border trick for clip-path not supported perfectly, but color match works */
+            border-bottom: 2px solid #d4af37; 
         }
 
         /* Student Info Table (Blue Arrow Style) */
@@ -155,16 +158,43 @@
             margin-bottom: 5px;
         }
 
-        /* --- PRINT CSS --- */
+        /* --- FIXED PRINT CSS --- */
         @media print {
-            body { margin: 0; background: white; }
-            .controls, .preview-wrapper { display: none !important; }
-            .main-container { padding: 0; display: block; }
-            .a4-page {
-                position: fixed; top: 0; left: 0; margin: 0; 
-                box-shadow: none; z-index: 9999;
+            body { 
+                background: white; 
+                margin: 0; padding: 0;
             }
-            @page { size: A4 portrait; margin: 0; }
+            .main-container {
+                display: block; padding: 0; margin: 0;
+            }
+            
+            /* Hide the input form */
+            .controls { display: none !important; }
+            
+            /* Make preview wrapper visible but reset styles */
+            .preview-wrapper { 
+                display: block !important; 
+                background: transparent !important; 
+                padding: 0 !important; 
+                margin: 0 !important; 
+                overflow: visible !important;
+            }
+
+            /* Target the A4 page specifically */
+            .a4-page {
+                margin: 0 auto;
+                box-shadow: none;
+                /* Force Print Colors */
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                page-break-after: avoid;
+                page-break-before: avoid;
+            }
+            
+            @page {
+                size: A4 portrait;
+                margin: 0; /* Remove browser default margins */
+            }
         }
     </style>
 </head>
@@ -201,7 +231,7 @@
         <div class="input-group"><label>তারিখ:</label><input type="date" id="in_date" oninput="handleDate()"></div>
 
         <button class="btn-print" onclick="window.print()">🖨️ Save as PDF</button>
-        <p style="font-size:11px; color:red; text-align:center;">Background Graphics টিক দিন</p>
+        <p style="font-size:11px; color:red; text-align:center;">প্রিন্ট সেটিংসে <b>Background Graphics</b> টিক দিন</p>
     </div>
 
     <div class="preview-wrapper">
