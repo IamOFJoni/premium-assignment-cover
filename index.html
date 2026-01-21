@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Islamic Cover Page Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Galada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* --- RESET & BASICS --- */
@@ -19,15 +19,16 @@
         .input-panel {
             width: 320px; background: white; padding: 20px; border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 5px solid #003366;
+            height: fit-content;
         }
-        .input-group { margin-bottom: 10px; }
-        .input-group label { display: block; font-weight: bold; font-size: 13px; margin-bottom: 4px; color: #003366; }
+        .input-group { margin-bottom: 8px; }
+        .input-group label { display: block; font-weight: bold; font-size: 13px; margin-bottom: 3px; color: #003366; }
         .input-group input, .input-group select {
-            width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Hind Siliguri';
+            width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Hind Siliguri'; font-size: 14px;
         }
         .btn-print {
             background: #003366; color: #ffcc00; border: none; padding: 12px; width: 100%;
-            font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 15px;
+            font-size: 16px; font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 15px;
             border: 2px solid #ffcc00;
         }
         .btn-print:hover { background: #002244; }
@@ -35,111 +36,100 @@
         /* --- PREVIEW AREA --- */
         .preview-area { background: #555; padding: 20px; border-radius: 8px; overflow: auto; }
 
-        /* --- A4 DESIGN (The Main Part) --- */
+        /* --- A4 DESIGN (Fixed Height Issue) --- */
         .a4-page {
             width: 210mm; height: 297mm;
-            /* Deep Blue Background replicating the image */
             background: radial-gradient(circle, #09203f 0%, #001220 100%);
             margin: 0 auto; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.5);
             padding: 10mm;
         }
 
-        /* The Gold Border Frame */
         .gold-frame {
-            border: 2px solid #d4af37; /* Gold */
-            height: 100%; width: 100%;
-            position: relative;
-            padding: 5px;
+            border: 2px solid #d4af37; height: 100%; width: 100%; position: relative; padding: 5px;
         }
 
-        /* The Cream "Arch" (Mihrab) Shape */
         .arch-container {
             background: #fff8e7; /* Cream color */
-            height: 100%; width: 100%;
-            /* Arch Shape using border-radius */
-            border-radius: 200px 200px 10px 10px / 60px 60px 10px 10px;
+            height: calc(100% - 45px); /* Adjusted height calculation */
+            width: 100%;
+            border-radius: 200px 200px 10px 10px / 50px 50px 10px 10px;
             border: 4px double #d4af37;
-            padding: 20px 30px;
+            padding: 15px 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            top: 40px; /* Pushed down to show blue header */
-            height: calc(100% - 40px);
+            top: 45px;
         }
 
-        /* Top Header (Outside Arch) */
+        /* Top Header */
         .top-header {
             position: absolute; top: 15px; width: 100%; text-align: center;
             z-index: 10; color: #d4af37;
         }
         .bismillah { filter: invert(80%) sepia(30%) saturate(1000%) hue-rotate(5deg); height: 30px; }
-        .uni-title { font-size: 24px; font-weight: 700; color: #ffcc00; text-shadow: 1px 1px 2px black; margin-top: 5px; }
+        .uni-title { font-size: 22px; font-weight: 700; color: #ffcc00; text-shadow: 1px 1px 2px black; margin-top: 2px; }
 
         /* Logo Circle */
         .logo-circle {
-            background: white; width: 90px; height: 90px; border-radius: 50%;
+            background: white; width: 85px; height: 85px; border-radius: 50%;
             border: 3px solid #d4af37; display: flex; justify-content: center; align-items: center;
-            margin-top: -55px; /* Pulls logo up into the blue */
-            z-index: 20; box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            margin-top: -55px; z-index: 20; box-shadow: 0 5px 10px rgba(0,0,0,0.2);
         }
-        .logo-img { width: 70px; }
+        .logo-img { width: 65px; }
 
-        /* Body Content */
-        .sub-txt { margin-top: 10px; font-weight: 600; color: #555; }
-        .madrasa-name { font-size: 28px; font-weight: 700; color: #8b6c00; text-align: center; margin: 5px 0; line-height: 1.2; }
-        .address { font-size: 15px; color: #444; margin-bottom: 15px; }
+        /* Content Styles */
+        .sub-txt { margin-top: 5px; font-weight: 600; color: #555; font-size: 14px; }
+        .madrasa-name { font-size: 26px; font-weight: 700; color: #8b6c00; text-align: center; margin: 2px 0; line-height: 1.2; }
+        .address { font-size: 14px; color: #444; margin-bottom: 10px; }
 
-        /* "Assignment" Badge (Blue Shape) */
         .badge-container {
-            background: #003366; color: white; padding: 5px 40px;
-            font-size: 22px; font-weight: 700; border-radius: 50px;
-            border: 2px solid #d4af37; margin-bottom: 20px;
+            background: #003366; color: white; padding: 4px 35px;
+            font-size: 20px; font-weight: 700; border-radius: 50px;
+            border: 2px solid #d4af37; margin-bottom: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
         }
 
-        /* Content Sections */
-        .content-width { width: 100%; }
+        .content-width { width: 100%; flex-grow: 1; } /* Allow growing to fill space */
 
-        /* Styled Rows (Top part) */
-        .simple-row { display: flex; align-items: flex-end; margin-bottom: 8px; font-size: 17px; }
-        .s-lbl { width: 100px; font-weight: 700; color: #222; }
+        /* Simple Rows */
+        .simple-row { display: flex; align-items: flex-end; margin-bottom: 5px; font-size: 16px; }
+        .s-lbl { width: 90px; font-weight: 700; color: #222; }
         .s-val { flex-grow: 1; border-bottom: 1px dotted #888; padding-left: 10px; }
 
-        /* Ornate Section Headers */
+        /* Ornate Headers */
         .ornate-header {
             background: linear-gradient(90deg, transparent, #003366, transparent);
-            color: white; text-align: center; font-size: 18px; font-weight: bold;
-            padding: 3px 0; margin: 15px 0 10px 0; width: 100%;
+            color: white; text-align: center; font-size: 16px; font-weight: bold;
+            padding: 2px 0; margin: 10px 0 8px 0; width: 100%;
             border-top: 1px solid #d4af37; border-bottom: 1px solid #d4af37;
         }
 
         /* STUDENT INFO TABLE (The Blue Tabs) */
         .st-row {
-            display: flex; margin-bottom: 6px; align-items: center;
-            background: white; border: 1px solid #e0d0a0; border-radius: 0 20px 20px 0;
-            overflow: hidden; height: 32px;
+            display: flex; margin-bottom: 5px; align-items: center;
+            background: white; border: 1px solid #e0d0a0; border-radius: 0 15px 15px 0;
+            overflow: hidden; height: 28px; /* Compact height */
         }
         
         .st-lbl {
             background: linear-gradient(to right, #002b45, #004e7a);
-            color: white; width: 130px; height: 100%;
-            display: flex; align-items: center; padding-left: 15px;
-            font-weight: 600; font-size: 15px;
-            /* Arrow shape using clip-path */
+            color: white; width: 110px; height: 100%;
+            display: flex; align-items: center; padding-left: 10px;
+            font-weight: 600; font-size: 14px;
             clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
             padding-right: 15px;
         }
         
         .st-val {
-            flex-grow: 1; padding-left: 15px; font-weight: 600; color: #333; font-size: 16px;
+            flex-grow: 1; padding-left: 10px; font-weight: 600; color: #333; font-size: 15px;
         }
 
         /* Footer */
         .footer-badge {
-            margin-top: auto; background: #003366; color: white;
-            padding: 5px 25px; border-radius: 20px; border: 2px solid #d4af37;
-            font-weight: 600; font-size: 16px; margin-bottom: 5px;
+            background: #003366; color: white;
+            padding: 4px 20px; border-radius: 20px; border: 2px solid #d4af37;
+            font-weight: 600; font-size: 15px; margin-top: auto; /* Push to bottom */
         }
 
         /* --- PRINT FIX --- */
@@ -153,6 +143,9 @@
                 position: fixed; top: 0; left: 0; right: 0;
                 box-shadow: none; padding: 10mm;
                 page-break-after: avoid; z-index: 9999;
+                /* Crucial for background graphics */
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
             @page { size: A4 portrait; margin: 0; }
         }
@@ -162,7 +155,7 @@
 
 <div class="main-container">
     <div class="input-panel">
-        <h3 style="text-align:center; color:#003366; margin:0 0 15px 0; border-bottom:2px solid #d4af37; padding-bottom:10px;">তথ্য পূরণ করুন</h3>
+        <h3 style="text-align:center; color:#003366; margin:0 0 10px 0; border-bottom:2px solid #d4af37; padding-bottom:5px;">তথ্য পূরণ করুন</h3>
         
         <div class="input-group">
             <label>মাদ্রাসার নাম:</label>
@@ -185,7 +178,7 @@
             <input type="text" id="in_code" placeholder="কোর্স কোড" oninput="up()">
         </div>
         
-        <hr style="border:0; border-top:1px dashed #ccc; margin:15px 0;">
+        <hr style="border:0; border-top:1px dashed #ccc; margin:10px 0;">
 
         <div class="input-group">
             <label>শিক্ষকের নাম:</label>
