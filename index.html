@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Islamic Assignment Cover Fixed</title>
+    <title>Islamic Assignment Cover Final</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -39,7 +39,7 @@
         /* --- A4 PAGE DESIGN --- */
         .a4-page {
             width: 210mm; height: 296mm; /* Exact A4 */
-            min-width: 210mm; min-height: 296mm; /* Prevents shrinking on mobile */
+            min-width: 210mm; min-height: 296mm; 
             background-color: #002b45; 
             background-image: radial-gradient(circle at 50% 20%, #004e7a 0%, #002b45 70%);
             margin: 0 auto; position: relative; 
@@ -47,24 +47,24 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
-        /* Header Area - FIX: Fixed Height in mm */
+        /* Header Area */
         .header-area {
-            height: 46mm; 
+            height: 45mm; /* Reduced slightly */
             display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
-            color: #d4af37; z-index: 2; position: relative; padding-top: 12mm;
+            color: #d4af37; z-index: 2; position: relative; padding-top: 10mm;
         }
-        .bismillah { filter: invert(1) brightness(2); height: 30px; margin-bottom: 5px; }
+        .bismillah { filter: invert(1) brightness(2); height: 25px; margin-bottom: 5px; }
         .uni-name { font-size: 24px; font-weight: 700; text-shadow: 2px 2px 4px black; text-align: center; }
 
-        /* The Cream Body - FIX: Padding Adjustment */
+        /* The Cream Body */
         .cream-body {
             position: absolute; bottom: 0; left: 0; right: 0;
-            top: 46mm; /* Starts exactly after header */
+            top: 45mm; 
             background: #fff8e5;
             border-top: 4px solid #d4af37;
             border-radius: 50% 50% 0 0 / 80px 80px 0 0; 
-            /* PADDING INCREASED to push text down from logo */
-            padding: 85px 40px 20px 40px; 
+            /* Adjusted padding to fit content better */
+            padding: 90px 40px 30px 40px; 
             display: flex; flex-direction: column;
             justify-content: space-between; 
         }
@@ -75,12 +75,12 @@
             border-radius: 50% 50% 0 0 / 80px 80px 0 0; pointer-events: none;
         }
 
-        /* LOGO - FIX: Positioning in mm ensures no overlap */
+        /* LOGO */
         .logo-container {
             position: absolute; 
-            top: 32mm; /* Fixed position */
+            top: 30mm; /* Adjusted position */
             left: 50%; transform: translateX(-50%);
-            width: 28mm; height: 28mm; /* Fixed size */
+            width: 28mm; height: 28mm;
             background: white; border-radius: 50%;
             border: 4px solid #d4af37;
             display: flex; justify-content: center; align-items: center;
@@ -88,81 +88,80 @@
         }
         .logo-img { width: 70%; }
 
-        /* General Text Info */
-        .info-header { text-align: center; margin-bottom: 10px; }
-        .sub-title { font-weight: 600; color: #333; font-size: 15px; }
+        /* Info Header */
+        .info-header { text-align: center; margin-bottom: 5px; }
+        .sub-title { font-weight: 600; color: #333; font-size: 14px; }
         .madrasa-name {
-            font-size: 28px; font-weight: 700; color: #8b6c00; 
-            margin: 5px 0; line-height: 1.2;
+            font-size: 26px; font-weight: 700; color: #8b6c00; 
+            margin: 2px 0; line-height: 1.2;
         }
-        .address { font-size: 15px; color: #444; }
+        .address { font-size: 14px; color: #444; }
 
         /* Badge */
         .assignment-badge {
-            background: #002b45; color: white; padding: 5px 50px;
-            font-size: 22px; font-weight: 700; border-radius: 50px;
+            background: #002b45; color: white; padding: 4px 40px;
+            font-size: 20px; font-weight: 700; border-radius: 50px;
             border: 2px solid #d4af37; display: inline-block;
             box-shadow: 0 4px 5px rgba(0,0,0,0.3);
-            margin-bottom: 15px; margin-top: 5px;
+            margin: 8px 0;
         }
 
-        /* Sections */
-        .section-block { width: 100%; margin-bottom: 5px; }
+        /* Rows */
+        .section-block { width: 100%; margin-bottom: 2px; }
         .line-row {
-            display: flex; width: 100%; margin-bottom: 8px; align-items: flex-end; font-size: 17px;
+            display: flex; width: 100%; margin-bottom: 5px; align-items: flex-end; font-size: 16px;
         }
-        .lbl { width: 90px; font-weight: 700; color: #000; }
+        .lbl { width: 80px; font-weight: 700; color: #000; }
         .val { 
             flex-grow: 1; border-bottom: 1px dotted #555; padding-left: 10px; font-weight: 500; 
         }
 
-        /* Decorative Headers */
+        /* Deco Header */
         .deco-header {
             display: flex; align-items: center; justify-content: center;
-            width: 100%; margin: 15px 0 10px 0;
+            width: 100%; margin: 10px 0 8px 0;
         }
         .deco-text {
-            background: #002b45; color: white; padding: 2px 40px;
-            font-size: 16px; font-weight: 700;
+            background: #002b45; color: white; padding: 2px 30px;
+            font-size: 15px; font-weight: 700;
             clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
             border-bottom: 2px solid #d4af37; 
             filter: drop-shadow(0 0 1px #d4af37);
         }
 
-        /* Student Info Table */
-        .st-table { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+        /* Student Table */
+        .st-table { display: flex; flex-direction: column; gap: 5px; width: 100%; }
         .st-row { display: flex; align-items: center; width: 100%; }
         .st-lbl {
             background: linear-gradient(90deg, #002b45 0%, #004e7a 100%);
-            color: white; width: 140px; height: 30px;
+            color: white; width: 130px; height: 26px;
             display: flex; align-items: center; padding-left: 15px;
-            font-size: 16px; font-weight: 600;
+            font-size: 15px; font-weight: 600;
             clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
         }
         .st-val {
-            flex-grow: 1; height: 30px;
+            flex-grow: 1; height: 26px;
             border: 1px solid #d4af37; border-left: none;
             margin-left: -10px; padding-left: 20px; display: flex; align-items: center;
-            font-weight: 600; font-size: 16px; background: white;
+            font-weight: 600; font-size: 15px; background: white;
             border-radius: 0 15px 15px 0; 
         }
 
         /* Footer */
         .footer-date {
             background: #002b45; color: white;
-            padding: 5px 30px; border-radius: 20px;
-            border: 2px solid #d4af37; font-weight: 600; font-size: 16px;
-            margin-bottom: 5px;
+            padding: 4px 25px; border-radius: 20px;
+            border: 2px solid #d4af37; font-weight: 600; font-size: 15px;
+            margin-bottom: 0;
         }
         
-        /* Mobile Responsive */
         @media screen and (max-width: 800px) {
             .main-container { flex-direction: column; align-items: center; }
             .controls { width: 100%; max-width: 400px; }
             .preview-wrapper { width: 100%; justify-content: flex-start; }
         }
 
-        /* --- FIXED PRINT CSS --- */
+        /* --- PRINT CSS FIXED --- */
         @media print {
             body { background: white; margin: 0; padding: 0; }
             .main-container { display: block; padding: 0; margin: 0; }
@@ -172,7 +171,11 @@
                 padding: 0 !important; margin: 0 !important; overflow: visible !important;
             }
             .a4-page {
-                position: fixed; top: 0; left: 0; margin: 0; box-shadow: none; z-index: 9999;
+                /* Changed from fixed to relative to fix clipping */
+                position: relative; 
+                margin: 0 auto; 
+                box-shadow: none; 
+                z-index: 1;
                 -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
             }
             @page { size: A4 portrait; margin: 0; }
@@ -212,7 +215,7 @@
         <div class="input-group"><label>তারিখ:</label><input type="date" id="in_date" oninput="handleDate()"></div>
 
         <button class="btn-print" onclick="window.print()">🖨️ Save as PDF</button>
-        <p style="font-size:11px; color:red; text-align:center; margin-top:5px;">প্রিন্ট সেটিংসে <b>Background Graphics</b> টিক দিন</p>
+        <p style="font-size:12px; color:red; text-align:center; margin-top:5px; font-weight:bold;">অবশ্যই Margins: None করে প্রিন্ট করবেন।</p>
     </div>
 
     <div class="preview-wrapper">
